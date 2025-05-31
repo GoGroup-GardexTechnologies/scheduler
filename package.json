@@ -1,0 +1,50 @@
+{
+  "name": "ivdms-scheduler",
+  "version": "1.0.0",
+  "description": "A scheduler",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "lint": "eslint \"src/**/*.ts\"",
+    "test": "jest",
+    "prepare": "husky install"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts",
+    "ignore": []
+  },
+  "dependencies": {
+    "axios": "^1.8.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "pino": "^9.6.0",
+    "toad-scheduler": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.1",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
+    "eslint": "^9.21.0",
+    "husky": "^9.1.7",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.4.3",
+    "pino-pretty": "^13.0.0",
+    "ts-jest": "^29.2.6",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.3"
+  },
+  "lint-staged": {
+    "*.ts": "eslint --cache --fix"
+  },
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=8.19.4"
+  }
+}
