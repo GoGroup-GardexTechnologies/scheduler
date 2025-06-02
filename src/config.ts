@@ -48,6 +48,14 @@ function parseWebhooks(): WebhookConfig[] {
     enabled: true,
   });
 
+  webhooks.push({
+    id: webhookTypes.trackMotorVehicleLicenseCertificate,
+    url: `${SERVICE_URLS.ivdmsServiceURI}/trackMotorVehicleLicenseCertificate`,
+    type: webhookTypes.trackMotorVehicleLicenseCertificate,
+    intervalMinutes: 0.5,
+    enabled: true,
+  });
+
   return webhooks;
 }
 
