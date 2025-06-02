@@ -40,6 +40,14 @@ function parseWebhooks(): WebhookConfig[] {
     enabled: true,
   });
 
+  webhooks.push({
+    id: webhookTypes.trackRenewMotorVehicleLicenseApplication,
+    url: `${SERVICE_URLS.ivdmsServiceURI}/trackRenewMotorVehicleLicenseApplication`,
+    type: webhookTypes.trackRenewMotorVehicleLicenseApplication,
+    intervalMinutes: 0.5,
+    enabled: true,
+  });
+
   return webhooks;
 }
 
