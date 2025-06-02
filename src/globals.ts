@@ -5,4 +5,5 @@ export const SERVICE_URLS: {[key: string]: string} = {
 export const webhookTypes = {
   trackApplicationWorkflow: "track-application-work-flow",
   trackRenewMotorVehicleLicenseApplication: "track-renew-motor-vehicle-license-application",
+  trackMotorVehicleLicenseCertificate: "track-motor-vehicle-license-certificate",
 };
