@@ -14,6 +14,11 @@ export class WebhookService {
           nonce: true
         };
 
+      case webhookTypes.trackRenewMotorVehicleLicenseApplication:
+        return {
+          nonce: true
+        };
+
       case 'default':
       default:
         return {
