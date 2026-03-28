@@ -22,6 +22,8 @@
     "axios": "^1.8.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "ioredis": "^5.7.0",
+    "nanoid": "^5.1.5",
     "pino": "^9.6.0",
     "toad-scheduler": "^3.0.1"
   },
@@ -29,6 +31,8 @@
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.13.1",
+    "@types/supertest": "^6.0.2",
+    "supertest": "^7.0.0",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "@typescript-eslint/parser": "^8.25.0",
     "eslint": "^9.21.0",
@@ -39,6 +43,16 @@
     "ts-jest": "^29.2.6",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.3"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "setupFiles": ["<rootDir>/src/__tests__/setup.ts"],
+    "testMatch": ["<rootDir>/src/__tests__/**/*.test.ts"],
+    "clearMocks": true,
+    "moduleNameMapper": {
+      "^nanoid$": "<rootDir>/node_modules/nanoid/index.cjs"
+    }
   },
   "lint-staged": {
     "*.ts": "eslint --cache --fix"
