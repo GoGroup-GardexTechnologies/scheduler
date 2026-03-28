@@ -7,37 +7,27 @@ export class WebhookService {
   /**
    * Generates the appropriate payload for the webhook based on its type
    */
-  private generatePayload(webhookType: string): Record<string, any> {
-    switch (webhookType) {
-      case webhookTypes.trackApplicationWorkflow:
-        return {
-          nonce: true
-        };
-
-      case 'default':
-      default:
-        return {
-          nonce: true
-        };
-    }
+  private generatePayload(_webhookType: string): Record<string, any> {
+    // All scheduler endpoints accept the same minimal nonce body.
+    return { nonce: true };
   }
 
   /**
    * Determines the appropriate HTTP headers based on webhook configuration
    */
   private getHeaders(webhook: WebhookConfig): Record<string, string> {
-    // Start with default headers
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
       'User-Agent': 'IVDMS-Scheduler',
-      'authorization': `Bearer ${config.ivdmsAPIKey}`
+      // Must match the x-scheduler-secret check in the backend's verifySchedulerSecret middleware
+      'x-scheduler-secret': config.schedulerSecret,
     };
 
-    // Add custom headers from config (these will override any conflicts)
+    // Per-webhook custom headers override defaults
     if (webhook.headers) {
       Object.assign(headers, webhook.headers);
     }
-    
+
     return headers;
   }
   
@@ -54,8 +44,8 @@ export class WebhookService {
     try {
       const startTime = Date.now();
       
-      const config: AxiosRequestConfig = {
-        timeout: 5000, // 5 second timeout
+      const axiosConfig: AxiosRequestConfig = {
+        timeout: webhook.timeoutMs ?? 5000,
         headers
       };
       
@@ -64,7 +54,7 @@ export class WebhookService {
         payload 
       });
       
-      await axios.post(webhook.url, payload, config);
+      await axios.post(webhook.url, payload, axiosConfig);
       
       const duration = Date.now() - startTime;
       logger.info(`Webhook request to ${webhook.url} completed in ${duration}ms`, {
